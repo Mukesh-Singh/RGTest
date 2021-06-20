@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RGTest</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Feeds</string>
+    <string name="second_fragment_label">Details Fragment</string>
+
+    <string name="no_data_found">No data found</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="read_full_story">Read full story</string>
+</resources>

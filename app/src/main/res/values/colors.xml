@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange_200">#FAA307</color>
+    <color name="red_500">#DC2F02</color>
+    <color name="red_700">#9D0208</color>
+    <color name="teal_200">#E9D8A6</color>
+    <color name="teal_700">#0A9396</color>
+    <color name="red_800">#370617</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="windowBackground">#f6f6f6</color>
+    <color name="windowBackground_night">#060606</color>
+    <color name="primary">@color/red_500</color>
+</resources>
