@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.graphics.createBitmap
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -53,6 +54,8 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         setHasOptionsMenu(true)
         adapter = ListAdapter();
         /*Get the device type i.e. phone of table. For phone it will be 1 else 0 for tablet*/
@@ -77,7 +80,7 @@ class ListFragment : Fragment() {
         }
         binding.recyclerView.adapter = adapter
         binding.firstItemLayout.setOnClickListener {
-
+            binding.imageView.transitionName ="Image-A"
             moveToDetails(binding.imageView,feedListViewModel.firstItem.value)
         }
         /*Observe the feeds value from the ViewModel*/
@@ -115,9 +118,14 @@ class ListFragment : Fragment() {
     private fun moveToDetails(view: View,item: FeedItem?) {
         feedListViewModel.itemForDetails.value = item
         val extras = FragmentNavigatorExtras(
-            view to "image",
+            view to view.transitionName,
         )
-        val directions = ListFragmentDirections.listToDetailsFragment(item!!.title)
+        val map = HashMap<String, String>()
+        map.put("Image", view.transitionName)
+        val transitionArg = SharedTransitionArg()
+        transitionArg.map = map
+
+        val directions = ListFragmentDirections.listToDetailsFragment(item!!.title, transitionArg)
         findNavController().navigate(directions, extras)
 
     }

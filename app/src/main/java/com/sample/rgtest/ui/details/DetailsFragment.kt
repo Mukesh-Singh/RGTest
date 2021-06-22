@@ -10,11 +10,14 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
+import com.sample.rgtest.R
 import com.sample.rgtest.data.entity.FeedItem
 import com.sample.rgtest.databinding.FragmentDetailsBinding
 import com.sample.rgtest.ui.list.FeedListViewModel
+import com.sample.rgtest.ui.list.SharedTransitionArg
 import com.sample.rgtest.util.formatTo
 import com.sample.rgtest.util.toDate
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,12 +37,17 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        sharedElementEnterTransition =
+//            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,6 +55,11 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         /*Observe the itemForDetails data of the view model*/
+
+        val safeArgs: DetailsFragmentArgs by navArgs()
+        val sharedArg:SharedTransitionArg=safeArgs.transitionArgument
+        binding.imageView.transitionName=sharedArg.map.get("Image")
+
         feedListViewModel.itemForDetails.observe(viewLifecycleOwner, Observer {
             Log.d("ForDetails", it.title)
             data = it

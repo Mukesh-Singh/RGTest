@@ -14,11 +14,14 @@
         <action
             android:id="@+id/list_to_details_fragment"
             app:destination="@id/DetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
+           >
+        </action>
+        <!--
+         app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-        </action>
+            app:popExitAnim="@anim/slide_out_right"
+        -->
     </fragment>
     <fragment
         android:id="@+id/DetailsFragment"
@@ -28,6 +31,9 @@
         <argument
             android:name="dynamicTitle"
             app:argType="string"/>
+        <argument
+            android:name="transitionArgument"
+            app:argType="com.sample.rgtest.ui.list.SharedTransitionArg" />
 
     </fragment>
 </navigation>

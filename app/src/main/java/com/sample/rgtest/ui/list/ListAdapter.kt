@@ -66,6 +66,7 @@ class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
          */
         fun bindData(itemData: FeedItem){
             binding.title.text = itemData.title
+            binding.imageView.transitionName= "Image-$adapterPosition"
             Glide.with(binding.imageView)
                 .load(itemData.imageUrl)
                 .placeholder(R.drawable.place_holder_image)
