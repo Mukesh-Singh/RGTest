@@ -22,7 +22,7 @@ class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
      * ItemClickListener to set the click listener on the list items
      */
     interface ItemClickListener{
-        fun onItemClicked(item: FeedItem)
+        fun onItemClicked(binding: RowFeedItemBinding,item: FeedItem)
     }
 
     /**
@@ -73,7 +73,7 @@ class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
                 .into(binding.imageView)
             binding.itemLayout.setOnClickListener {
                 itemClickListener.let {
-                    it?.onItemClicked(itemData)
+                    it?.onItemClicked(binding,itemData)
                 }
             }
         }

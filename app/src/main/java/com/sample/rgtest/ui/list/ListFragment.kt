@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.sample.rgtest.R
 import com.sample.rgtest.data.entity.FeedItem
 import com.sample.rgtest.databinding.FragmentListBinding
+import com.sample.rgtest.databinding.RowFeedItemBinding
 import com.sample.rgtest.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,15 +70,15 @@ class ListFragment : Fragment() {
 
         /*Set click listener on recycler view item*/
         adapter.itemClickListener = object: ListAdapter.ItemClickListener{
-            override fun onItemClicked(item: FeedItem) {
-                moveToDetails(item)
+            override fun onItemClicked(binding: RowFeedItemBinding, item: FeedItem) {
+                moveToDetails(binding.imageView,item)
             }
 
         }
         binding.recyclerView.adapter = adapter
         binding.firstItemLayout.setOnClickListener {
 
-            moveToDetails(feedListViewModel.firstItem.value)
+            moveToDetails(binding.imageView,feedListViewModel.firstItem.value)
         }
         /*Observe the feeds value from the ViewModel*/
         feedListViewModel.feeds.observe(viewLifecycleOwner, Observer {
@@ -111,10 +112,10 @@ class ListFragment : Fragment() {
      * @param item
      * Show the details fragment for the selected item
      */
-    private fun moveToDetails(item: FeedItem?) {
+    private fun moveToDetails(view: View,item: FeedItem?) {
         feedListViewModel.itemForDetails.value = item
         val extras = FragmentNavigatorExtras(
-            binding.imageView to "image",
+            view to "image",
         )
         val directions = ListFragmentDirections.listToDetailsFragment(item!!.title)
         findNavController().navigate(directions, extras)
